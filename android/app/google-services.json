@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "311204757285",
+    "project_id": "trobits-80ac6",
+    "storage_bucket": "trobits-80ac6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:311204757285:android:79454d6f1730e68b59a4cc",
+        "android_client_info": {
+          "package_name": "com.trobits.trobitsv4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQS6lwb440aHZF-76yJRxAEXiic6Erm80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
