@@ -1,5 +1,4 @@
 import '/components/pop_up_menu/pop_up_contact_us/pop_up_contact_us_widget.dart';
-import '/components/table_burn/table_burn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -306,49 +305,6 @@ class _FooterWidgetState extends State<FooterWidget> {
                               fontFamily: 'Readex Pro',
                               letterSpacing: 0.0,
                             ),
-                      ),
-                    ),
-                  ),
-                  Builder(
-                    builder: (context) => Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent('FOOTER_COMP_Text_vprg5ph0_ON_TAP');
-                          logFirebaseEvent('Text_alert_dialog');
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: const AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: const SizedBox(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  child: TableBurnWidget(),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          'Crypto Burn Archive',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Readex Pro',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                letterSpacing: 0.0,
-                              ),
-                        ),
                       ),
                     ),
                   ),

@@ -1,6 +1,5 @@
 import '/components/pop_up_menu/account_pop_up_menu/account_pop_up_menu_widget.dart';
 import '/components/pop_up_menu/welcome_pop_up/welcome_pop_up_widget.dart';
-import '/components/table_burn/table_burn_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
@@ -207,55 +206,6 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                     fontFamily: 'Readex Pro',
                                     letterSpacing: 0.0,
                                   ),
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Builder(
-                        builder: (context) => InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            logFirebaseEvent(
-                                'NAV_BAR_COMP_Text_td13nxzp_ON_TAP');
-                            logFirebaseEvent('Text_alert_dialog');
-                            await showDialog(
-                              context: context,
-                              builder: (dialogContext) {
-                                return Dialog(
-                                  elevation: 0,
-                                  insetPadding: EdgeInsets.zero,
-                                  backgroundColor: Colors.transparent,
-                                  alignment: const AlignmentDirectional(0.0, 0.0)
-                                      .resolve(Directionality.of(context)),
-                                  child: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.9,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.9,
-                                    child: const TableBurnWidget(),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          child: Text(
-                            'Crypto Burn',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: FFAppState().currentPageName ==
-                                          'Crypto Burn'
-                                      ? FlutterFlowTheme.of(context).secondary
-                                      : FlutterFlowTheme.of(context).info,
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                ),
-                          ),
                         ),
                       ),
                     ),

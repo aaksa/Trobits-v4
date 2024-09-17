@@ -243,7 +243,7 @@ class _HowItWorksWidgetState extends State<HowItWorksWidget> {
                                                 ),
                                           ),
                                           Text(
-                                            'Every interaction contributes to revenue generation, which is used to burn your favorite coins, increasing their value. Join the thousands shaping the future value\nof your coin.',
+                                            'Every interaction contributes to revenue generation, which is used to burn your favorite coins, increasing their value. Join the millions in shaping the future value\nof your coin.',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -305,7 +305,7 @@ class _HowItWorksWidgetState extends State<HowItWorksWidget> {
                                                 ),
                                           ),
                                           Text(
-                                            'Engagement on the platform generates revenue, used strategically to burn selected coins, reducing their supply and potentially increasing their market value.',
+                                            'Engagement on the platform generates revenue, which is used to burn your favorite coins, reducing their supply and potentially increasing their market value.',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
