@@ -11,3 +11,7 @@ export '/page/article/article_widget.dart' show ArticleWidget;
 export '/page/article_detail/article_detail_widget.dart'
     show ArticleDetailWidget;
 export '/cookies/cookies_widget.dart' show CookiesWidget;
+export '/page/learns/learns_main/learns_main_widget.dart' show LearnsMainWidget;
+export '/page/learns/learns_detail/learns_detail_widget.dart'
+    show LearnsDetailWidget;
+export '/page/learns/learns_type/learns_type_widget.dart' show LearnsTypeWidget;

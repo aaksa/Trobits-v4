@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'leaderboard_model.dart';
 export 'leaderboard_model.dart';
 
@@ -137,15 +138,18 @@ class _LeaderboardWidgetState extends State<LeaderboardWidget> {
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
-                return AlertDialog(
-                  title: Text((_model.apiResultCoin?.exceptionMessage ?? '')),
-                  content: Text((_model.apiResultCoin?.exceptionMessage ?? '')),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext),
-                      child: const Text('Ok'),
-                    ),
-                  ],
+                return WebViewAware(
+                  child: AlertDialog(
+                    title: Text((_model.apiResultCoin?.exceptionMessage ?? '')),
+                    content:
+                        Text((_model.apiResultCoin?.exceptionMessage ?? '')),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
                 );
               },
             );

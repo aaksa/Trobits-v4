@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -346,6 +348,36 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInBurnedShiba(int index, BurnedCoinsStruct value) {
     burnedShiba.insert(index, value);
   }
+
+  final _newcacheManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> newcache({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _newcacheManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearNewcacheCache() => _newcacheManager.clear();
+  void clearNewcacheCacheKey(String? uniqueKey) =>
+      _newcacheManager.clearRequest(uniqueKey);
+
+  final _coincacheManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> coincache({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _coincacheManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearCoincacheCache() => _coincacheManager.clear();
+  void clearCoincacheCacheKey(String? uniqueKey) =>
+      _coincacheManager.clearRequest(uniqueKey);
 }
 
 void _safeInit(Function() initializeField) {

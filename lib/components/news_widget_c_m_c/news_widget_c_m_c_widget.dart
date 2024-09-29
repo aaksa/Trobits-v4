@@ -3,6 +3,7 @@ import '/components/modal_pop_up_web/modal_pop_up_web_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'news_widget_c_m_c_model.dart';
 export 'news_widget_c_m_c_model.dart';
 
@@ -64,11 +65,13 @@ class _NewsWidgetCMCWidgetState extends State<NewsWidgetCMCWidget> {
                   backgroundColor: Colors.transparent,
                   alignment: const AlignmentDirectional(0.0, 0.0)
                       .resolve(Directionality.of(context)),
-                  child: SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.6,
-                    width: MediaQuery.sizeOf(context).width * 0.65,
-                    child: ModalPopUpWebWidget(
-                      url: widget.newsData?.newsUrl,
+                  child: WebViewAware(
+                    child: SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.6,
+                      width: MediaQuery.sizeOf(context).width * 0.65,
+                      child: ModalPopUpWebWidget(
+                        url: widget.newsData?.newsUrl,
+                      ),
                     ),
                   ),
                 );

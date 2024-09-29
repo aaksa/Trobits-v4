@@ -24,6 +24,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'home_model.dart';
 export 'home_model.dart';
 
@@ -107,15 +108,18 @@ class _HomeWidgetState extends State<HomeWidget> {
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
-                return AlertDialog(
-                  title: Text((_model.apiResultCoin?.exceptionMessage ?? '')),
-                  content: Text((_model.apiResultCoin?.exceptionMessage ?? '')),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext),
-                      child: const Text('Ok'),
-                    ),
-                  ],
+                return WebViewAware(
+                  child: AlertDialog(
+                    title: Text((_model.apiResultCoin?.exceptionMessage ?? '')),
+                    content:
+                        Text((_model.apiResultCoin?.exceptionMessage ?? '')),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
                 );
               },
             );
@@ -148,16 +152,19 @@ class _HomeWidgetState extends State<HomeWidget> {
             await showDialog(
               context: context,
               builder: (alertDialogContext) {
-                return AlertDialog(
-                  title: Text(
-                      (_model.newsApiResult?.statusCode ?? 200).toString()),
-                  content: Text((_model.newsApiResult?.exceptionMessage ?? '')),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(alertDialogContext),
-                      child: const Text('Ok'),
-                    ),
-                  ],
+                return WebViewAware(
+                  child: AlertDialog(
+                    title: Text(
+                        (_model.newsApiResult?.statusCode ?? 200).toString()),
+                    content:
+                        Text((_model.newsApiResult?.exceptionMessage ?? '')),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(alertDialogContext),
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
                 );
               },
             );
@@ -355,265 +362,316 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        10.0, 0.0, 10.0, 0.0),
-                                                child:
-                                                    FlutterFlowDropDown<String>(
-                                                  controller: _model
-                                                          .dropDownValueController1 ??=
-                                                      FormFieldController<
-                                                          String>(
-                                                    _model.dropDownValue1 ??=
-                                                        'Price',
+                                          FutureBuilder<ApiCallResponse>(
+                                            future: FFAppState().coincache(
+                                              requestFn: () =>
+                                                  TrendingCoinCall.call(),
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                      ),
+                                                    ),
                                                   ),
-                                                  options: const [
-                                                    'Price',
-                                                    'Recently Added',
-                                                    'Trending',
-                                                    'Most Visited'
-                                                  ],
-                                                  onChanged: (val) async {
-                                                    safeSetState(() => _model
-                                                        .dropDownValue1 = val);
-                                                    logFirebaseEvent(
-                                                        'HOME_DropDown_1nmc3hsh_ON_FORM_WIDGET_SE');
-                                                    logFirebaseEvent(
-                                                        'DropDown_update_page_state');
-                                                    _model.nameSelectedCoinNavBar =
-                                                        _model.dropDownValue1!;
-                                                    safeSetState(() {});
-                                                    logFirebaseEvent(
-                                                        'DropDown_refresh_database_request');
-                                                    safeSetState(() => _model
-                                                            .apiRequestCompleter =
-                                                        null);
-                                                    await _model
-                                                        .waitForApiRequestCompleted();
-                                                  },
-                                                  width: 125.0,
-                                                  height: 25.0,
-                                                  textStyle: FlutterFlowTheme
-                                                          .of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
+                                                );
+                                              }
+                                              final rowTrendingCoinResponse =
+                                                  snapshot.data!;
+
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(10.0, 0.0,
+                                                                10.0, 0.0),
+                                                    child: FlutterFlowDropDown<
+                                                        String>(
+                                                      controller: _model
+                                                              .dropDownValueController1 ??=
+                                                          FormFieldController<
+                                                              String>(
+                                                        _model.dropDownValue1 ??=
+                                                            'Price',
+                                                      ),
+                                                      options: const [
+                                                        'Price',
+                                                        'Recently Added',
+                                                        'Trending',
+                                                        'Most Visited'
+                                                      ],
+                                                      onChanged: (val) async {
+                                                        safeSetState(() => _model
+                                                                .dropDownValue1 =
+                                                            val);
+                                                        logFirebaseEvent(
+                                                            'HOME_DropDown_1nmc3hsh_ON_FORM_WIDGET_SE');
+                                                        logFirebaseEvent(
+                                                            'DropDown_update_page_state');
+                                                        _model.nameSelectedCoinNavBar =
+                                                            _model
+                                                                .dropDownValue1!;
+                                                        safeSetState(() {});
+                                                        logFirebaseEvent(
+                                                            'DropDown_refresh_database_request');
+                                                        safeSetState(() => _model
+                                                                .apiRequestCompleter =
+                                                            null);
+                                                        await _model
+                                                            .waitForApiRequestCompleted();
+                                                      },
+                                                      width: 125.0,
+                                                      height: 25.0,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Readex Pro',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .info,
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      hintText: 'Category',
+                                                      icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .info,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
+                                                                .secondary,
+                                                        size: 20.0,
                                                       ),
-                                                  hintText: 'Category',
-                                                  icon: Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondary,
-                                                    size: 20.0,
+                                                      fillColor: Colors.black,
+                                                      elevation: 2.0,
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderWidth: 2.0,
+                                                      borderRadius: 0.0,
+                                                      margin:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  10.0,
+                                                                  4.0,
+                                                                  10.0,
+                                                                  4.0),
+                                                      hidesUnderline: true,
+                                                      isOverButton: false,
+                                                      isSearchable: false,
+                                                      isMultiSelect: false,
+                                                    ),
                                                   ),
-                                                  fillColor: Colors.black,
-                                                  elevation: 2.0,
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderWidth: 2.0,
-                                                  borderRadius: 0.0,
-                                                  margin: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          10.0, 4.0, 10.0, 4.0),
-                                                  hidesUnderline: true,
-                                                  isOverButton: false,
-                                                  isSearchable: false,
-                                                  isMultiSelect: false,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 8.0, 0.0, 8.0),
-                                                  child: Builder(
-                                                    builder: (context) {
-                                                      final listOfCoins = () {
-                                                        if (_model
-                                                                .nameSelectedCoinNavBar ==
-                                                            'Price') {
-                                                          return _model
-                                                              .coinCardData;
-                                                        } else if (_model
-                                                                .nameSelectedCoinNavBar ==
-                                                            'Most Visited') {
-                                                          return _model
-                                                              .mostVisitedCoin;
-                                                        } else if (_model
-                                                                .nameSelectedCoinNavBar ==
-                                                            'Recently Added') {
-                                                          return _model.newCoin;
-                                                        } else if (_model
-                                                                .nameSelectedCoinNavBar ==
-                                                            'Trending') {
-                                                          return _model
-                                                              .trendingCoin;
-                                                        } else {
-                                                          return _model
-                                                              .coinCardData;
-                                                        }
-                                                      }()
-                                                          .toList();
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0,
+                                                                  8.0),
+                                                      child: Builder(
+                                                        builder: (context) {
+                                                          final listOfCoins =
+                                                              () {
+                                                            if (_model
+                                                                    .nameSelectedCoinNavBar ==
+                                                                'Price') {
+                                                              return _model
+                                                                  .coinCardData;
+                                                            } else if (_model
+                                                                    .nameSelectedCoinNavBar ==
+                                                                'Most Visited') {
+                                                              return _model
+                                                                  .mostVisitedCoin;
+                                                            } else if (_model
+                                                                    .nameSelectedCoinNavBar ==
+                                                                'Recently Added') {
+                                                              return _model
+                                                                  .newCoin;
+                                                            } else if (_model
+                                                                    .nameSelectedCoinNavBar ==
+                                                                'Trending') {
+                                                              return _model
+                                                                  .trendingCoin;
+                                                            } else {
+                                                              return _model
+                                                                  .coinCardData;
+                                                            }
+                                                          }()
+                                                                  .toList();
 
-                                                      return Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: List.generate(
-                                                            listOfCoins.length,
-                                                            (listOfCoinsIndex) {
-                                                          final listOfCoinsItem =
-                                                              listOfCoins[
-                                                                  listOfCoinsIndex];
-                                                          return Expanded(
-                                                            child: Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Row(
+                                                          return Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: List.generate(
+                                                                listOfCoins
+                                                                    .length,
+                                                                (listOfCoinsIndex) {
+                                                              final listOfCoinsItem =
+                                                                  listOfCoins[
+                                                                      listOfCoinsIndex];
+                                                              return Expanded(
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
                                                                         mainAxisSize:
                                                                             MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
                                                                         children: [
-                                                                          RichText(
-                                                                            textScaler:
-                                                                                MediaQuery.of(context).textScaler,
-                                                                            text:
-                                                                                TextSpan(
-                                                                              children: [
-                                                                                TextSpan(
-                                                                                  text: valueOrDefault<String>(
-                                                                                    listOfCoinsItem.symbol,
-                                                                                    'Coin Name',
-                                                                                  ),
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              RichText(
+                                                                                textScaler: MediaQuery.of(context).textScaler,
+                                                                                text: TextSpan(
+                                                                                  children: [
+                                                                                    TextSpan(
+                                                                                      text: valueOrDefault<String>(
+                                                                                        listOfCoinsItem.symbol,
+                                                                                        'Coin Name',
+                                                                                      ),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Readex Pro',
+                                                                                            color: FlutterFlowTheme.of(context).info,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                          ),
+                                                                                    ),
+                                                                                    TextSpan(
+                                                                                      text: ' : ',
+                                                                                      style: GoogleFonts.getFont(
+                                                                                        'Outfit',
+                                                                                        color: FlutterFlowTheme.of(context).customColor1,
+                                                                                        fontWeight: FontWeight.w800,
+                                                                                      ),
+                                                                                    ),
+                                                                                    TextSpan(
+                                                                                      text: functions.formatDoublePrice(valueOrDefault<double>(
+                                                                                        listOfCoinsItem.quote.usd.price,
+                                                                                        0000.0,
+                                                                                      )),
+                                                                                      style: GoogleFonts.getFont(
+                                                                                        'Readex Pro',
+                                                                                        color: FlutterFlowTheme.of(context).secondary,
+                                                                                        fontWeight: FontWeight.bold,
+                                                                                        fontSize: 14.0,
+                                                                                      ),
+                                                                                    )
+                                                                                  ],
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Readex Pro',
-                                                                                        color: FlutterFlowTheme.of(context).info,
+                                                                                        fontSize: 12.0,
                                                                                         letterSpacing: 0.0,
-                                                                                        fontWeight: FontWeight.w600,
                                                                                       ),
                                                                                 ),
-                                                                                TextSpan(
-                                                                                  text: ' : ',
-                                                                                  style: GoogleFonts.getFont(
-                                                                                    'Outfit',
-                                                                                    color: FlutterFlowTheme.of(context).customColor1,
-                                                                                    fontWeight: FontWeight.w800,
-                                                                                  ),
-                                                                                ),
-                                                                                TextSpan(
-                                                                                  text: functions.formatDoublePrice(valueOrDefault<double>(
-                                                                                    listOfCoinsItem.quote.usd.price,
-                                                                                    0000.0,
-                                                                                  )),
-                                                                                  style: GoogleFonts.getFont(
-                                                                                    'Readex Pro',
-                                                                                    color: FlutterFlowTheme.of(context).secondary,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                    fontSize: 14.0,
-                                                                                  ),
-                                                                                )
-                                                                              ],
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Readex Pro',
-                                                                                    fontSize: 12.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                  ),
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
                                                                         ],
                                                                       ),
-                                                                    ],
-                                                                  ),
+                                                                    ),
+                                                                    const SizedBox(
+                                                                      height:
+                                                                          20.0,
+                                                                      child:
+                                                                          VerticalDivider(
+                                                                        width:
+                                                                            5.0,
+                                                                        thickness:
+                                                                            1.0,
+                                                                        color: Color(
+                                                                            0x8000ADD8),
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                                const SizedBox(
-                                                                  height: 20.0,
-                                                                  child:
-                                                                      VerticalDivider(
-                                                                    width: 5.0,
-                                                                    thickness:
-                                                                        1.0,
-                                                                    color: Color(
-                                                                        0x8000ADD8),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                              );
+                                                            }),
                                                           );
-                                                        }),
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                              if (_model
-                                                      .nameSelectedCoinNavBar !=
-                                                  'Price')
-                                                Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 0.0, 15.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'HOME_PAGE_Icon_suqhgj30_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Icon_navigate_to');
-
-                                                      context.pushNamed(
-                                                        'Leaderboard',
-                                                        pathParameters: {
-                                                          'coinCategory':
-                                                              serializeParam(
-                                                            _model
-                                                                .nameSelectedCoinNavBar,
-                                                            ParamType.String,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    },
-                                                    child: Icon(
-                                                      Icons.more_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondary,
-                                                      size: 24.0,
+                                                        },
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                            ],
+                                                  if (_model
+                                                          .nameSelectedCoinNavBar !=
+                                                      'Price')
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  15.0,
+                                                                  0.0,
+                                                                  15.0,
+                                                                  0.0),
+                                                      child: InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          logFirebaseEvent(
+                                                              'HOME_PAGE_Icon_suqhgj30_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'Icon_navigate_to');
+
+                                                          context.pushNamed(
+                                                            'Leaderboard',
+                                                            pathParameters: {
+                                                              'coinCategory':
+                                                                  serializeParam(
+                                                                _model
+                                                                    .nameSelectedCoinNavBar,
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        },
+                                                        child: Icon(
+                                                          Icons.more_rounded,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
+                                                          size: 24.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
+                                              );
+                                            },
                                           ),
                                           const Divider(
                                             height: 3.0,

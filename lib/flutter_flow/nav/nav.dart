@@ -99,6 +99,38 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'cookies',
           path: '/cookies',
           builder: (context, params) => const CookiesWidget(),
+        ),
+        FFRoute(
+          name: 'Learns_Main',
+          path: '/learnsMain',
+          builder: (context, params) => const LearnsMainWidget(),
+        ),
+        FFRoute(
+          name: 'Learns_Detail',
+          path: '/learnsDetail',
+          asyncParams: {
+            'data': getDoc(['Learns'], LearnsRecord.fromSnapshot),
+          },
+          builder: (context, params) => LearnsDetailWidget(
+            data: params.getParam(
+              'data',
+              ParamType.Document,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'Learns_Type',
+          path: '/learnsType',
+          builder: (context, params) => LearnsTypeWidget(
+            type: params.getParam(
+              'type',
+              ParamType.String,
+            ),
+            typeName: params.getParam(
+              'typeName',
+              ParamType.String,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

@@ -1,10 +1,12 @@
 import '/components/pop_up_menu/account_pop_up_menu/account_pop_up_menu_widget.dart';
+import '/components/pop_up_menu/learns_menu/learns_menu_widget.dart';
 import '/components/pop_up_menu/welcome_pop_up/welcome_pop_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
@@ -174,6 +176,53 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         ),
                       ),
                     ),
+                    Flexible(
+                      child: Builder(
+                        builder: (context) => InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            logFirebaseEvent(
+                                'NAV_BAR_COMP_Text_5kh5zau4_ON_TAP');
+                            logFirebaseEvent('Text_alert_dialog');
+                            await showAlignedDialog(
+                              context: context,
+                              isGlobal: false,
+                              avoidOverflow: true,
+                              targetAnchor: const AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              followerAnchor: const AlignmentDirectional(0.0, 0.0)
+                                  .resolve(Directionality.of(context)),
+                              builder: (dialogContext) {
+                                return const Material(
+                                  color: Colors.transparent,
+                                  child: WebViewAware(
+                                    child: LearnsMenuWidget(),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            'Learns',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  color: FFAppState().currentPageName ==
+                                          'Article'
+                                      ? FlutterFlowTheme.of(context).secondary
+                                      : FlutterFlowTheme.of(context).info,
+                                  fontSize: 14.0,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ),
                     Builder(
                       builder: (context) => InkWell(
                         splashColor: Colors.transparent,
@@ -194,7 +243,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                             builder: (dialogContext) {
                               return const Material(
                                 color: Colors.transparent,
-                                child: WelcomePopUpWidget(),
+                                child: WebViewAware(
+                                  child: WelcomePopUpWidget(),
+                                ),
                               );
                             },
                           );
@@ -271,7 +322,9 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 builder: (dialogContext) {
                                   return const Material(
                                     color: Colors.transparent,
-                                    child: AccountPopUpMenuWidget(),
+                                    child: WebViewAware(
+                                      child: AccountPopUpMenuWidget(),
+                                    ),
                                   );
                                 },
                               );
