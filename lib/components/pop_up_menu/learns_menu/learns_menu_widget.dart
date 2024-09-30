@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'learns_menu_model.dart';
 export 'learns_menu_model.dart';
 
@@ -139,7 +138,7 @@ class _LearnsMenuWidgetState extends State<LearnsMenuWidget> {
                                               const EdgeInsetsDirectional.fromSTEB(
                                                   12.0, 0.0, 0.0, 0.0),
                                           child: Text(
-                                            'Tips and Tutorial',
+                                            'Crypto tips',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -211,72 +210,6 @@ class _LearnsMenuWidgetState extends State<LearnsMenuWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 8.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    logFirebaseEvent(
-                                        'LEARNS_MENU_COMP_option_ON_TAP');
-                                    logFirebaseEvent('option_navigate_to');
-
-                                    context.pushNamed('Learns_Main');
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 0.0, 0.0),
-                                        child: FaIcon(
-                                          FontAwesomeIcons.solidNewspaper,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          size: 20.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  12.0, 0.0, 0.0, 0.0),
-                                          child: Text(
-                                            'See All Articles',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
