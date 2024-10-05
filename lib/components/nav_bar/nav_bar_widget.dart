@@ -145,13 +145,27 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       ),
                     ),
                     Flexible(
+                      child: Text(
+                        'CryptoHub',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).titleSmall.override(
+                              fontFamily: 'Readex Pro',
+                              color: FFAppState().currentPageName == 'Article'
+                                  ? FlutterFlowTheme.of(context).secondary
+                                  : FlutterFlowTheme.of(context).info,
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ),
+                    Flexible(
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          logFirebaseEvent('NAV_BAR_COMP_Text_85fvvol8_ON_TAP');
+                          logFirebaseEvent('NAV_BAR_COMP_Text_ffvaixsb_ON_TAP');
                           logFirebaseEvent('Text_navigate_to');
 
                           context.pushNamed('Article');
@@ -206,7 +220,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                             );
                           },
                           child: Text(
-                            'Learns',
+                            'Learn',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
