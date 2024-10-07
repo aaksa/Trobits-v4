@@ -145,17 +145,31 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                       ),
                     ),
                     Flexible(
-                      child: Text(
-                        'CryptoHub',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily: 'Readex Pro',
-                              color: FFAppState().currentPageName == 'Article'
-                                  ? FlutterFlowTheme.of(context).secondary
-                                  : FlutterFlowTheme.of(context).info,
-                              fontSize: 14.0,
-                              letterSpacing: 0.0,
-                            ),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent('NAV_BAR_COMP_Text_85fvvol8_ON_TAP');
+                          logFirebaseEvent('Text_launch_u_r_l');
+                          await launchURL(
+                              'https://community-bmcxs2.flutterflow.app/loginPage');
+                        },
+                        child: Text(
+                          'CryptoHub',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .titleSmall
+                              .override(
+                                fontFamily: 'Readex Pro',
+                                color: FFAppState().currentPageName == 'Article'
+                                    ? FlutterFlowTheme.of(context).secondary
+                                    : FlutterFlowTheme.of(context).info,
+                                fontSize: 14.0,
+                                letterSpacing: 0.0,
+                              ),
+                        ),
                       ),
                     ),
                     Flexible(
